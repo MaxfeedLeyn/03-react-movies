@@ -10,7 +10,7 @@ interface HttpsMovieResponse {
   total_results: number;
 }
 
-async function fetchMovies(query: string) {
+async function fetchMovies(query: string): Promise<Movie[]> {
   const response = await axios.get<HttpsMovieResponse>(
     `https://api.themoviedb.org/3/search/movie?query=${query}`,
     {

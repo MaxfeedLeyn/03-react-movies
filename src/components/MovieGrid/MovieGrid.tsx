@@ -2,7 +2,7 @@ import css from './MovieGrid.module.css';
 import type { Movie } from '../../types/movie';
 
 interface MovieGridProps {
-  onSelect: (movieId: Movie) => void;
+  onSelect: (movie: Movie) => void;
   movies: Movie[];
 }
 

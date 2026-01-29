@@ -1,41 +1,49 @@
-import css from "./MovieModal.module.css";
-import type { Movie } from "../types/movie";
-import { createPortal } from "react-dom";
-import { useEffect } from "react";
+import css from './MovieModal.module.css';
+import type { Movie } from '../types/movie';
+import { createPortal } from 'react-dom';
+import { useEffect } from 'react';
 
 interface MovieModalProps {
-    movie: Movie;
-    onClose: () => void;
+  movie: Movie;
+  onClose: () => void;
 }
 
 function MovieModal({ movie, onClose }: MovieModalProps) {
+  const handleBackdropClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (e.target === e.currentTarget) {
+      onClose();
+    }
+  };
 
-    const handleBackdropClick = (e: React.MouseEvent<HTMLDivElement>) => {
-        if (e.target === e.currentTarget) {
-            onClose();
-        }
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        onClose();
+      }
     };
 
-    useEffect(() => {
-        const handleKeyDown = (e: KeyboardEvent) => {
-            if (e.key === "Escape") {
-                onClose();
-            }
-        };
-        
-        document.addEventListener("keydown", handleKeyDown);
-        document.body.style.overflow = "hidden";
+    document.addEventListener('keydown', handleKeyDown);
+    document.body.style.overflow = 'hidden';
 
-        return () => {
-            document.removeEventListener("keydown", handleKeyDown);
-            document.body.style.overflow = "";
-        }
-    }, [onClose]);
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = '';
+    };
+  }, [onClose]);
 
   return createPortal(
-    <div className={css.backdrop} role="dialog" aria-modal="true">
-      <div className={css.modal} onClick={handleBackdropClick}>
-        <button className={css.closeButton} onClick={onClose} aria-label="Close modal">
+    <div
+      className={css.backdrop}
+      onClick={handleBackdropClick}
+      role="dialog"
+      aria-modal="true"
+    >
+      <div className={css.modal}>
+        <button
+          className={css.closeButton}
+          onClick={onClose}
+          aria-label="Close modal"
+        >
           &times;
         </button>
         <img
@@ -54,7 +62,7 @@ function MovieModal({ movie, onClose }: MovieModalProps) {
           </p>
         </div>
       </div>
-      </div>,
+    </div>,
     document.body
   );
 }

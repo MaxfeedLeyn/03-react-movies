@@ -37,9 +37,8 @@ function App() {
     }
   };
 
-  const onSelectMovie = (movieId: number) => {
-    const movie = movies.find(m => m.id === movieId);
-    setSelectedMovie(movie || null);
+  const onSelectMovie = (movie: Movie) => {
+    setSelectedMovie(movie);
   };
 
   return (

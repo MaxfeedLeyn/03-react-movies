@@ -1,7 +1,14 @@
 import axios from 'axios';
-import type { HttpsMovieResponse } from '../types/movie';
+import type { Movie } from '../types/movie';
 
 const myKey = import.meta.env.VITE_TMDB_API_KEY;
+
+interface HttpsMovieResponse {
+  page: number;
+  results: Movie[];
+  total_pages: number;
+  total_results: number;
+}
 
 async function fetchMovies(query: string) {
   const response = await axios.get<HttpsMovieResponse>(

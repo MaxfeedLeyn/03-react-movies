@@ -2,7 +2,7 @@ import css from './MovieGrid.module.css';
 import type { Movie } from '../../types/movie';
 
 interface MovieGridProps {
-  onSelect: (movieId: number) => void;
+  onSelect: (movieId: Movie) => void;
   movies: Movie[];
 }
 
@@ -10,7 +10,7 @@ function MovieGrid({ onSelect, movies }: MovieGridProps) {
   return (
     <ul className={css.grid}>
       {movies.map(movie => (
-        <li key={movie.id} onClick={() => onSelect(movie.id)}>
+        <li key={movie.id} onClick={() => onSelect(movie)}>
           <div className={css.card}>
             <img
               className={css.image}
